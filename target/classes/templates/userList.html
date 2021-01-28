@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td> <span th:text="${user.username}"> Title </span><td/>
+        <td> <span th:text="${user.roles}"> </span></td>
+        <td><a th:href="@{/user/{id}(id =${user.id})}">edit</a></td>
+        <td> <label><input type="checkbox" name="active"  th:checked="${user.active}"> Active</label></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
