@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head th:replace="/fragment/head :: head">
+<head>
+    <title>Spring Security Example </title>
 </head>
 <body>
-<div  class="container  mt-5">
 <a th:text="#{registration.text }"></a>
 <a th:text="${name}"></a>
 <form th:action="@{/registration}" method="post">
@@ -12,6 +12,5 @@
     <div><label> <a th:text="#{password.text}" ></a> <input type="password" name="password"/> </label></div>
     <div><button class="btn" type="submit"  th:text="#{signUp.button}"></button></div>
 </form>
-</div>
 </body>
 </html>
