@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
+<head th:replace="/fragment/head :: head">
 </head>
 <body>
+<div class="container  ">
+    <a th:replace="/fragment/navbar :: navbar"></a>
+</div>
+<div  class="container mt-5">
 <h1>Welcome!</h1>
-
-<p>Click <a th:href="@{/main}">here</a> to see a greeting.</p>
+<p>Hello, user.</p>
+    <p>Here little payments project.</p>
+</div>
 </body>
+
 </html>

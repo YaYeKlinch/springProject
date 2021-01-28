@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
+<head th:replace="/fragment/head :: head">
 </head>
 <body>
+<div class="container">
+    <a th:replace="/fragment/navbar :: navbar"></a>
+</div>
+<div  class="container  mt-5">
 <table>
     <thead>
     <tr>
@@ -20,5 +24,6 @@
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>
