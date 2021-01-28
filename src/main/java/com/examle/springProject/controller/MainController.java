@@ -9,13 +9,11 @@ public class MainController {
     @GetMapping("/")
     public String greeting( Map<String,Object> model)
     {
-        return "greeting";
+        return "greeting.html";
     }
 
 @GetMapping("/main")
 public String main(Map<String,Object> model){
-    model.put("some" , "hello,user");
-
-   return "main";
+   return "main.html";
 }
 }
