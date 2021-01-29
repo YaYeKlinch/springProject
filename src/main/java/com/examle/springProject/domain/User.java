@@ -14,6 +14,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String firsName;
+    private String lastName;
     private String username;
     private String password;
     private boolean active;
@@ -48,6 +50,22 @@ public class User implements UserDetails {
 
     public boolean isActive() {
         return active;
+    }
+
+    public String getFirsName() {
+        return firsName;
+    }
+
+    public void setFirsName(String firsName) {
+        this.firsName = firsName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Long getId() {

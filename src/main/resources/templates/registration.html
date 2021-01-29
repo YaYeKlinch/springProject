@@ -5,12 +5,15 @@
 <body>
 <div class="container">
 <a th:text="#{registration.text }"></a>
+
 <a th:text="${name}"></a>
-<form th:action="@{/registration}" method="post">
-    <div><label> <a th:text="#{userName.text}" ></a> <input type="text" name="username"/> </label></div>
-    <div><label> <a th:text="#{password.text}" ></a> <input type="password" name="password"/> </label></div>
+    <form th:action="@{/registration}"  method="POST" th:object="${user}" >
+        <div><label> firstName: <input  th:field="*{firstName}" /> </label></div>
+        <div><label> lastName: <input  th:field="*{lastName}" /> </label></div>
+        <div><label> <a th:text="#{userName.text}"/> <input  th:field="*{email}" /> </label></div>
+        <div><label> <a th:text="#{password.text}"/> <input type="password"  th:field="*{password}" /> </label></div>
     <div><button class="btn" type="submit"  th:text="#{signUp.button}"></button></div>
-    </div>
 </form>
+</div>
 </body>
 </html>
