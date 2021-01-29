@@ -12,6 +12,7 @@
         <div><label> lastName: <input  th:field="*{lastName}" /> </label></div>
         <div><label> <a th:text="#{userName.text}"/> <input  th:field="*{email}" /> </label></div>
         <div><label> <a th:text="#{password.text}"/> <input type="password"  th:field="*{password}" /> </label></div>
+        <div><label> <a th:text="#{password.text}"/> <input type="password" type="matchingPassword"  th:field="*{password}" /> </label></div>
     <div><button class="btn" type="submit"  th:text="#{signUp.button}"></button></div>
 </form>
 </div>
