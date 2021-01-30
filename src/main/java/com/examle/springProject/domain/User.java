@@ -1,12 +1,14 @@
 package com.examle.springProject.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +33,11 @@ public class User implements UserDetails {
     @NotNull
     private String password;
     private boolean active;
+
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    Set<Account> accounts;
+
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))

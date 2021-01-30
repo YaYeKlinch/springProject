@@ -1,9 +1,11 @@
-package com.examle.springProject.service;
+package com.examle.springProject.service.User;
 
 import com.examle.springProject.controller.Dto.UserDTO;
 import com.examle.springProject.domain.Role;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.repos.UserRepo;
+import com.examle.springProject.service.User.UserAlreadyExistException;
+import com.examle.springProject.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +21,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserDetailsService,UserService {
+public class UserServiceImpl implements UserDetailsService, UserService {
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
     @Autowired
@@ -31,7 +33,7 @@ public class UserServiceImpl implements UserDetailsService,UserService {
     }
 
     @Override
-    public Optional<User> registerUser(UserDTO userDto) throws UserAlreadyExistException{
+    public Optional<User> registerUser(UserDTO userDto) throws UserAlreadyExistException {
             if (emailExists(userDto.getEmail())) {
                 throw new UserAlreadyExistException(
                         "There is an account with that email address: "

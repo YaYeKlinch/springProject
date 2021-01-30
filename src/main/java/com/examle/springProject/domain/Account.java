@@ -26,8 +26,8 @@ public class Account {
     @NotNull
     private int costs;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="owner_id", nullable=false)
     private User owner;
 
 
@@ -76,7 +76,6 @@ public class Account {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

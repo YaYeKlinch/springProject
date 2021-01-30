@@ -2,8 +2,8 @@ package com.examle.springProject.controller;
 
 import com.examle.springProject.controller.Dto.UserDTO;
 import com.examle.springProject.domain.User;
-import com.examle.springProject.service.UserAlreadyExistException;
-import com.examle.springProject.service.UserService;
+import com.examle.springProject.service.User.UserAlreadyExistException;
+import com.examle.springProject.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
