@@ -8,11 +8,16 @@
 
 <a th:text="${name}"></a>
     <form th:action="@{/registration}"  method="POST" th:object="${user}" >
-        <div><label> firstName: <input  th:field="*{firstName}" /> </label></div>
-        <div><label> lastName: <input  th:field="*{lastName}" /> </label></div>
-        <div><label> <a th:text="#{userName.text}"/> <input  th:field="*{email}" /> </label></div>
-        <div><label> <a th:text="#{password.text}"/> <input type="password"  th:field="*{password}" /> </label></div>
-        <div><label> <a th:text="#{password.text}"/> <input type="password" type="matchingPassword"  th:field="*{password}" /> </label></div>
+        <div><label> firstName: <input  th:field="*{firstName}" />
+            <a th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</a>
+        </label></div>
+        <div><label> lastName: <input  th:field="*{lastName}" />
+            <a th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</a></label></div>
+        <div><label> <a th:text="#{userName.text}"/> <input  th:field="*{email}" />
+            <a th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</a></label></div>
+        <div><label> <a th:text="#{password.text}"/> <input type="password"  th:field="*{password}" />
+            <a th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</a></label></div>
+        <div><label><input type="password" th:field="*{matchingPassword}" /></label></div>
     <div><button class="btn" type="submit"  th:text="#{signUp.button}"></button></div>
 </form>
 </div>

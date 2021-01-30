@@ -10,11 +10,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserDetailsService,UserService {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    Validator validator = factory.getValidator();
     @Autowired
     private UserRepo userRepo;
 
@@ -30,6 +37,7 @@ public class UserServiceImpl implements UserDetailsService,UserService {
                         "There is an account with that email address: "
                                 +  userDto.getEmail());
             }
+        Set<ConstraintViolation<UserDTO>> violations =      validator.validate(userDto);
         User userToCreate = new User();
         userToCreate.setFirsName(userDto.getFirstName());
         userToCreate.setLastName(userDto.getLastName());
