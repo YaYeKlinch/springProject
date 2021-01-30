@@ -1,6 +1,7 @@
 package com.examle.springProject.domain;
 
 
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,9 +15,20 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
+    @NotNull
     private String firsName;
+
+    @Column(nullable = false)
+    @NotNull
     private String lastName;
+
+    @Column(nullable = false)
+    @NotNull
     private String username;
+
+    @Column(nullable = false)
+    @NotNull
     private String password;
     private boolean active;
 
