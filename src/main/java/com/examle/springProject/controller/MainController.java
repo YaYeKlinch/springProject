@@ -47,8 +47,8 @@ public class MainController {
     @PostMapping("/addAccount")
     public ModelAndView addAccount(
             @ModelAttribute("account") @Valid AccountDTO accountDTO,
-            @AuthenticationPrincipal User owner,
             BindingResult bindingResult,
+            @AuthenticationPrincipal User owner,
             Model model)
     {
         if(bindingResult.hasErrors()){
