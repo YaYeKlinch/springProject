@@ -60,7 +60,11 @@ public class MainController {
             model.addAttribute("name" , ex.getMessage());
             return new ModelAndView("addAccount", "account",  accountDTO);
         }
-
         return new ModelAndView("redirect:/main","account",  accountDTO);
     }
+    @GetMapping("/main/{accountId}")
+    public String increaseCostsForm(){
+        return "increaseCosts";
+    }
+
 }

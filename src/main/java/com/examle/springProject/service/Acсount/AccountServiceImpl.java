@@ -35,6 +35,14 @@ public class AccountServiceImpl implements AccountService{
         accountToCreate.setOwner(owner);
         accountRepo.save(accountToCreate);
     }
+
+    @Override
+    public void increaseCosts(Long accountId, int costs) {
+        Account account = accountRepo.findById(accountId).get();
+        account.setCosts(account.getCosts()+costs);
+        accountRepo.save(account);
+    }
+
     private boolean accountExist(String number ,Long owner_id){
         return accountRepo.findAccountsByOwner_idAndNumber(owner_id , number).size() != 0;}
 }

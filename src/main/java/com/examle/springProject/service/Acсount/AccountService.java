@@ -11,4 +11,6 @@ public interface AccountService {
     List<Account> findAllAccountsByOwner(User owner);
 
     void createAccount(AccountDTO accountDTO , User owner) throws AccountAlreadyExistsException;
+
+    void increaseCosts(Long accountId , int costs);
 }

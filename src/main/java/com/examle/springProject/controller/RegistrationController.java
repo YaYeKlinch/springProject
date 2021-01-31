@@ -40,7 +40,6 @@ public class RegistrationController {
            model.addAttribute("name" , ex.getMessage());
             return new ModelAndView("registration", "user", userDto);
         }
-
         return new ModelAndView("login", "user", userDto);
     }
 }

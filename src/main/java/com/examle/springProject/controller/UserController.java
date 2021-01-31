@@ -27,7 +27,6 @@ public class UserController {
     }
     @PostMapping("")
     public String userSave(User user) {
-
         userRepo.save(user);
         return "redirect:/user";
     }

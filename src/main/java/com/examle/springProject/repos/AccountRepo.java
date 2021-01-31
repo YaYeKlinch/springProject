@@ -5,12 +5,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AccountRepo extends CrudRepository<Account, Long> {
 
     List<Account> findByName(String name);
 
-    Account findByNumber(String number);
+    Optional<Account> findById(Long id);
 
     List<Account> findAccountsByOwner_id(@Param("owner_id") Long id);
 
