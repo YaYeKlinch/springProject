@@ -6,6 +6,22 @@
 <div class="container">
 <header th:replace="/fragment/navbar :: navbar"></header>
 <h1 th:inline="text"><a th:text = "#{hello.text}"></a> [[${#httpServletRequest.remoteUser}]]!</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Costs</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td> <span th:text="${account.name}"> </span><td/>
+            <td> <span th:text="${account.number}"> </span></td>
+            <td> <span th:text="${account.costs}"> </span></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
