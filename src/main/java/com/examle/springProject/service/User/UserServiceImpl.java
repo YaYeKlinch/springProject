@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
                         "There is an account with that email address: "
                                 +  userDto.getEmail());
             }
-        Set<ConstraintViolation<UserDTO>> violations =      validator.validate(userDto);
+        validator.validate(userDto);
         User userToCreate = new User();
         userToCreate.setFirsName(userDto.getFirstName());
         userToCreate.setLastName(userDto.getLastName());

@@ -5,6 +5,7 @@
 <body>
 <div class="container">
 <header th:replace="/fragment/navbar :: navbar"></header>
+    <a  href="/addAccount">Add new account</a>
 <h1 th:inline="text"><a th:text = "#{hello.text}"></a> [[${#httpServletRequest.remoteUser}]]!</h1>
     <table>
         <thead>

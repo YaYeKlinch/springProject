@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="/fragment/head :: head"></head>
+<body>
+<div class="container">
+    <header th:replace="/fragment/navbar :: navbar"></header>
+    <a th:text="${name}"></a>
+    <form th:action="@{/addAccount}"  method="POST" th:object="${account}" >
+        <div><label> Account name: <input  th:field="*{name}" />
+            <a th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</a>
+        </label></div>
+        <div><label> Account number: <input  th:field="*{number}" />
+            <a th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Error</a></label></div>
+            <div><button class="btn" type="submit" >Add account</button></div>
+    </form>
+</div>
+</body>
+</html>

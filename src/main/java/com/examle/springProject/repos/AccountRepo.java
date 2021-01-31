@@ -10,5 +10,9 @@ public interface AccountRepo extends CrudRepository<Account, Long> {
 
     List<Account> findByName(String name);
 
+    Account findByNumber(String number);
+
     List<Account> findAccountsByOwner_id(@Param("owner_id") Long id);
+
+    List<Account> findAccountsByOwner_idAndNumber(@Param("owner_id") Long id ,@Param("number") String number);
 }
