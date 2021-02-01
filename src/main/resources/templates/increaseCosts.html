@@ -5,7 +5,11 @@
 <body>
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
-
+    <form  th:action="@{|/main/${accountId}|}"  method="post">
+        <input type="number" th:name="costs"/>
+        <a th:text=${Error}></a></label>
+        <div><input type="submit" value="Edit"/></div>
+    </form>
 </div>
 </body>
 </html>
