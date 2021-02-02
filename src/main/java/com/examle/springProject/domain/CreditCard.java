@@ -14,8 +14,8 @@ public class CreditCard {
     @Column(name = "account_id")
     private Long id;
 
-    int cvv;
-    private String number;
+    private String cvv;
+    private Long number;
     private int pin;
 
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -42,11 +42,11 @@ public class CreditCard {
         this.pin = pin;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 
-    public String getNumber() {
+    public Long getNumber() {
         return number;
     }
 
@@ -58,11 +58,11 @@ public class CreditCard {
         this.date = date;
     }
 
-    public int getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 
