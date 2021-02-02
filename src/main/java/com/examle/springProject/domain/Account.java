@@ -30,7 +30,17 @@ public class Account {
     @JoinColumn(name="owner_id", nullable=false)
     private User owner;
 
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private CreditCard creditCard;
 
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
 
     public boolean isBlocked() {
         return blocked;

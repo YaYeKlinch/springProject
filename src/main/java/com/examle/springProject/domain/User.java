@@ -35,6 +35,7 @@ public class User implements UserDetails {
     private boolean active;
 
 
+
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     Set<Account> accounts;
 
