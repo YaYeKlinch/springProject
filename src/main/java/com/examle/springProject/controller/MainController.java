@@ -3,6 +3,7 @@ import com.examle.springProject.controller.Dto.AccountDTO;
 import com.examle.springProject.controller.utility.CostValidator;
 import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.User;
+import com.examle.springProject.exceptions.CostValidateException;
 import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
 import com.examle.springProject.service.Acсount.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +75,14 @@ public class MainController {
             @PathVariable("accountId") Long accountId,
             @NotEmpty Integer costs,
             Model model) {
-        if(!CostValidator.validateCost(costs)){
+        try {
+            CostValidator.validateCost(costs);
+            model.addAttribute("costs", costs);
+            accountService.increaseCosts(accountId , costs);
+        } catch (CostValidateException|NullPointerException ex){
             model.addAttribute("Error" , "Costs must be less then" + CostValidator.MAX_COST);
             return "increaseCosts";
         }
-        model.addAttribute("costs", costs);
-        accountService.increaseCosts(accountId , costs);
         return "redirect:/main";
 
     }

@@ -32,10 +32,13 @@ public class CreditCardController {
                            Model model){
         try {
             PinValidator.validatePin(pin,confirmedPin);
+            model.addAttribute("pin" ,pin);
+            model.addAttribute("confirmedPin" ,confirmedPin);
             creditCardService.createAndSaveCard(accountId , pin);
-        }catch (PinValidateException ex){
+        }catch (PinValidateException|NullPointerException ex){
             model.addAttribute("Exception" , ex.getMessage());
+            return "addCreditCard";
         }
-        return null;
+        return "redirect:/main";
     }
 }

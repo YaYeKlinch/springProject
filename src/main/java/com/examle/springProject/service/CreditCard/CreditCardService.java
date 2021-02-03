@@ -25,8 +25,6 @@ public class CreditCardService {
 
     @Transactional
     public void createAndSaveCard(Long accountId , int pin){
-
-
         CreditCard cardToCreate = new CreditCard();
         cardToCreate.setAccount(accountRepo.findById(accountId).get());
         cardToCreate.setNumber(generateRandomNumber());
