@@ -3,6 +3,7 @@ package com.examle.springProject.domain;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "account")
@@ -30,17 +31,10 @@ public class Account {
     @JoinColumn(name="owner_id", nullable=false)
     private User owner;
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private CreditCard creditCard;
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    Set<CreditCard> creditCards;
 
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
 
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
 
     public boolean isBlocked() {
         return blocked;

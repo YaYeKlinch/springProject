@@ -5,8 +5,6 @@ import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
 import com.examle.springProject.service.Acсount.AccountServiceImpl;
-import com.examle.springProject.service.User.UserAlreadyExistException;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -20,10 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.validation.Valid;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
@@ -72,14 +66,13 @@ public class MainController {
     }
     @GetMapping("/main/{accountId}")
     public String increaseCostsForm( @PathVariable("accountId") Long accountId ,Model model ){
-        Account account = accountService.findById(accountId);
         model.addAttribute("accountId" , accountId);
         return "increaseCosts";
     }
     @PostMapping("/main/{accountId}")
     public String increaseCosts(
             @PathVariable("accountId") Long accountId,
-            @NotEmpty @Max(1000) Integer costs,
+            @NotEmpty Integer costs,
             Model model) {
         if(!CostValidator.validateCost(costs)){
             model.addAttribute("Error" , "Costs must be less then" + CostValidator.MAX_COST);

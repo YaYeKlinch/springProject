@@ -1,4 +1,4 @@
-package com.examle.springProject.service.User;
+package com.examle.springProject.exceptions;
 
 public class UserAlreadyExistException extends RuntimeException{
 

@@ -2,7 +2,7 @@ package com.examle.springProject.controller;
 
 import com.examle.springProject.controller.Dto.UserDTO;
 import com.examle.springProject.domain.User;
-import com.examle.springProject.service.User.UserAlreadyExistException;
+import com.examle.springProject.exceptions.UserAlreadyExistException;
 import com.examle.springProject.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

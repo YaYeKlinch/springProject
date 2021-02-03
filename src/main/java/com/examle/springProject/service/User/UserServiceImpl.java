@@ -4,21 +4,18 @@ import com.examle.springProject.controller.Dto.UserDTO;
 import com.examle.springProject.domain.Role;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.repos.UserRepo;
-import com.examle.springProject.service.User.UserAlreadyExistException;
-import com.examle.springProject.service.User.UserService;
+import com.examle.springProject.exceptions.UserAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {

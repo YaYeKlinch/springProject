@@ -11,7 +11,6 @@ public class CreditCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "account_id")
     private Long id;
 
     private String cvv;
@@ -21,9 +20,8 @@ public class CreditCard {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "account_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="account_id", nullable=false)
     Account account;
 
     public Account getAccount() {
@@ -70,7 +68,6 @@ public class CreditCard {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }

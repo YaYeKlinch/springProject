@@ -2,7 +2,7 @@ package com.examle.springProject.service.User;
 
 import com.examle.springProject.controller.Dto.UserDTO;
 import com.examle.springProject.domain.User;
-import com.examle.springProject.service.User.UserAlreadyExistException;
+import com.examle.springProject.exceptions.UserAlreadyExistException;
 
 import java.util.Optional;
 
