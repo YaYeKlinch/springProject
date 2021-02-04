@@ -7,26 +7,24 @@
 <header th:replace="/fragment/navbar :: navbar"></header>
     <a  href="/addAccount">Add new account</a>
 <h1 th:inline="text"><a th:text = "#{hello.text}"></a> [[${#httpServletRequest.remoteUser}]]!</h1>
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Costs</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number</th>
+            <th scope="col">Costs</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="account : ${accounts}">
-            <td> <span th:text="${account.name}"> </span><td/>
-            <td> <span th:text="${account.number}"> </span></td>
-            <td> <span th:text="${account.costs}"> </span></td>
+        <tr scope="row" th:each="account : ${accounts}">
+            <td th:text="${account.name}"> </td>
+            <td th:text="${account.number}"> </td>
+            <td th:text="${account.costs}">> </td>
+            <td><a th:href="@{/main/creditCard/{id}(id =${account.id})}">create card</a></td>
             <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
             <td><a th:href="@{/main/{id}(id =${account.id})}">addCosts</a></td>
             </div>
-            <td><a th:href="@{/main/creditCard/{id}(id =${account.id})}">create card</a></td>
-
         </tr>
-        </tbody>
     </table>
 </div>
 </body>

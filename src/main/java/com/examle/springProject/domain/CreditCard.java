@@ -17,12 +17,23 @@ public class CreditCard {
     private Long number;
     private int pin;
 
+    @Enumerated(EnumType.STRING)
+    private CardType cardType;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="account_id", nullable=false)
     Account account;
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
 
     public Account getAccount() {
         return account;
