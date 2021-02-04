@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="/fragment/head :: head"></head>
+<body>
+<div class="container">
+    <header th:replace="/fragment/navbar :: navbar"></header>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Type</th>
+            <th>End data</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="card : ${creditCards}">
+            <td th:text="${card.number}"> </td>
+            <td th:text="${card.cardType}"> </td>
+            <td  th:text="${card.date}"> ></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

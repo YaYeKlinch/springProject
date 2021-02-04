@@ -24,6 +24,9 @@
             <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
             <td><a th:href="@{/main/{id}(id =${account.id})}">addCosts</a></td>
             </div>
+            <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
+                <td><a th:href="@{/main/creditCardList/{id}(id =${account.id})}">my cards</a></td>
+            </div>
         </tr>
     </table>
 </div>

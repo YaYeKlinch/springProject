@@ -25,6 +25,12 @@ public class CreditCardController {
     @Autowired
     CreditCardService creditCardService;
 
+    @GetMapping("/main/creditCardList/{account}")
+    public String creditCardList(@PathVariable("account") Account account ,
+                                 Model model){
+        model.addAttribute("creditCards" , account.getCreditCards());
+     return "creditCardList";
+    }
     @GetMapping("/main/creditCard/{accountId}")
     public String addCardForm(@PathVariable("accountId") Long accountId , Model model){
         List<String> cardTypes = Stream.of(CardType.values())

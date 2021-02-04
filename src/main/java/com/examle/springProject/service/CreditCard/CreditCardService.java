@@ -25,8 +25,6 @@ public class CreditCardService {
     @Autowired
     AccountRepo accountRepo;
 
-
-
     @Transactional
     public void createAndSaveCard(Account account , int pin , CardType type){
         CreditCard cardToCreate = new CreditCard();
