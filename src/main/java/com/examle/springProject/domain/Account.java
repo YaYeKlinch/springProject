@@ -32,9 +32,15 @@ public class Account {
     private User owner;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-    Set<CreditCard> creditCards;
+    private  Set<CreditCard> creditCards;
 
+    public Set<CreditCard> getCreditCards() {
+        return creditCards;
+    }
 
+    public void setCreditCards(Set<CreditCard> creditCards) {
+        this.creditCards = creditCards;
+    }
 
     public boolean isBlocked() {
         return blocked;
