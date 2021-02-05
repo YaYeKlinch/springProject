@@ -7,20 +7,22 @@ import com.examle.springProject.exceptions.CostValidateException;
 import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
 import com.examle.springProject.service.Acсount.AccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class MainController {
@@ -35,19 +37,34 @@ public class MainController {
 
 
     @GetMapping("/main")
-    public String main(@AuthenticationPrincipal User owner, Model model){
-        List<Account> accounts = accountService.findAllAccountsByOwner(owner);
+    public String main(@AuthenticationPrincipal User owner,
+                       @RequestParam("page") Optional<Integer> page,
+                       @RequestParam("size") Optional<Integer> size,
+                       Model model){
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<Account> accounts = accountService.findAllByOwner(owner  , PageRequest.of(currentPage - 1, pageSize));
+       // List<Account> accounts = accountService.findAllAccountsByOwner(owner);
+        int totalPages = accounts.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         model.addAttribute("accounts" , accounts);
-        return "main.html";
+        return "main";
     }
 
-    @GetMapping("/addAccount")
+
+    @GetMapping("/add-account")
     public String addAccountForm( Model model){
         AccountDTO accountDTO  = new AccountDTO();
         model.addAttribute("account" , accountDTO);
         return "addAccount";
     }
-    @PostMapping("/addAccount")
+    @PostMapping("/add-account")
     public ModelAndView addAccount(
             @ModelAttribute("account") @Valid AccountDTO accountDTO,
             BindingResult bindingResult,

@@ -5,8 +5,9 @@
 <body>
 <div class="container">
 <header th:replace="/fragment/navbar :: navbar"></header>
-    <a  href="/addAccount">Add new account</a>
+
 <h1 th:inline="text"><a th:text = "#{hello.text}"></a> [[${#httpServletRequest.remoteUser}]]!</h1>
+    <a  href="/add-account">Add new account</a>
     <table class="table">
         <thead>
         <tr>
@@ -16,19 +17,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr scope="row" th:each="account : ${accounts}">
+        <tr scope="row" th:each="account : ${accounts.content}">
             <td th:text="${account.name}"> </td>
             <td th:text="${account.number}"> </td>
             <td th:text="${account.costs}">> </td>
-            <td><a th:href="@{/main/creditCard/{id}(id =${account.id})}">create card</a></td>
+            <td><a th:href="@{/main/credit-card-list/{id}(id =${account.id})}">my cards</a></td>
             <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
-            <td><a th:href="@{/main/{id}(id =${account.id})}">addCosts</a></td>
-            </div>
-            <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
-                <td><a th:href="@{/main/creditCardList/{id}(id =${account.id})}">my cards</a></td>
+                <td><a th:href="@{/main/{id}(id =${account.id})}">addCosts</a></td>
             </div>
         </tr>
     </table>
+    <ul th:if="${accounts.totalPages > 0}" class="nav nav-tabs justify-content-center">
+        <li class="nav-item"  th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/main(size=${accounts.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==accounts.number + 1} ? active"></a>
+        </li>
+    </ul>
 </div>
 </body>
 </html>

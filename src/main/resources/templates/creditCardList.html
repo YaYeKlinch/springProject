@@ -5,6 +5,9 @@
 <body>
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
+    <h2 th:inline="text"> Account <a th:text="${account.name}"></a></h2>
+    <a th:href="@{/main/credit-card/{id}(id =${account.id})}">create card</a>
+    <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
     <table class="table">
         <thead>
         <tr>
@@ -21,6 +24,10 @@
         </tr>
         </tbody>
     </table>
+    </div>
+    <div th:if="${#lists.isEmpty(account.getCreditCards())}">
+        <h2>You don't have credit card on this account</h2>
+    </div>
 </div>
 </body>
 </html>

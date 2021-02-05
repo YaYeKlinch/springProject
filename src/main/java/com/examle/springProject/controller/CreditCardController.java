@@ -25,13 +25,14 @@ public class CreditCardController {
     @Autowired
     CreditCardService creditCardService;
 
-    @GetMapping("/main/creditCardList/{account}")
+    @GetMapping("/main/credit-card-list/{account}")
     public String creditCardList(@PathVariable("account") Account account ,
                                  Model model){
         model.addAttribute("creditCards" , account.getCreditCards());
+        model.addAttribute("account" , account);
      return "creditCardList";
     }
-    @GetMapping("/main/creditCard/{accountId}")
+    @GetMapping("/main/credit-card/{accountId}")
     public String addCardForm(@PathVariable("accountId") Long accountId , Model model){
         List<String> cardTypes = Stream.of(CardType.values())
                 .map(CardType::name)
@@ -40,7 +41,7 @@ public class CreditCardController {
         model.addAttribute("accountId", accountId);
         return "addCreditCard";
     }
-    @PostMapping("/main/creditCard/{account}")
+    @PostMapping("/main/credit-card/{account}")
     public String addCard(@PathVariable("account")Account account,
                           CardType cardType,
                           @NotEmpty Integer pin,
@@ -56,6 +57,6 @@ public class CreditCardController {
             model.addAttribute("Exception" , ex.getMessage());
             return "addCreditCard";
         }
-        return "redirect:/main";
+        return "redirect:/main/credit-card-list/{account}";
     }
 }

@@ -5,6 +5,8 @@ import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.repos.AccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,9 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public List<Account> findAllAccountsByOwner(User owner) {
         return accountRepo.findAccountsByOwner_id(owner.getId());
+    }
+    public Page<Account> findAllByOwner(User owner , Pageable pageable){
+        return accountRepo.findAllByOwner_id(owner.getId() , pageable);
     }
 
     @Override
@@ -43,8 +48,7 @@ public class AccountServiceImpl implements AccountService{
     }
     @Override
     public Account findById(Long id){
-        Account account = accountRepo.findById(id).get();
-        return account;
+        return accountRepo.findById(id).get();
     }
 
     private boolean accountExist(String number ,Long owner_id){

@@ -6,7 +6,7 @@
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
 
-    <form  th:action="@{|/main/creditCard/${accountId}|}"  method="post">
+    <form  th:action="@{|/main/credit-card/${accountId}|}"  method="post">
         <div class="form-group blu-margin">
             <select class="form-control"  th:name="cardType" id="dropOperator">
                 <option th:each="type : ${cardTypes}" th:value="${type}" th:text="${type}"></option>
