@@ -1,12 +1,17 @@
 package com.examle.springProject.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "credit_card")
+@Getter
+@Setter
 public class CreditCard {
 
     @Id
@@ -27,59 +32,6 @@ public class CreditCard {
     @JoinColumn(name="account_id", nullable=false)
     Account account;
 
-    public CardType getCardType() {
-        return cardType;
-    }
-
-    public void setCardType(CardType cardType) {
-        this.cardType = cardType;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public int getPin() {
-        return pin;
-    }
-
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
-    public void setNumber(Long number) {
-        this.number = number;
-    }
-
-    public Long getNumber() {
-        return number;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "creditCard" , fetch = FetchType.LAZY)
+    Set<UserPayment> userPayments;
 }

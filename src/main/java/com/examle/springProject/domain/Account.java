@@ -1,12 +1,16 @@
 package com.examle.springProject.domain;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "account")
+@Getter
+@Setter
 public class Account {
 
     @Id
@@ -34,59 +38,4 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private  Set<CreditCard> creditCards;
 
-    public Set<CreditCard> getCreditCards() {
-        return creditCards;
-    }
-
-    public void setCreditCards(Set<CreditCard> creditCards) {
-        this.creditCards = creditCards;
-    }
-
-    public boolean isBlocked() {
-        return blocked;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public int getCosts() {
-        return costs;
-    }
-
-    public void setCosts(int costs) {
-        this.costs = costs;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
