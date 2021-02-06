@@ -1,11 +1,14 @@
 package com.examle.springProject.controller;
 import com.examle.springProject.controller.Dto.AccountDTO;
+import com.examle.springProject.controller.utility.ControllerUtils;
 import com.examle.springProject.controller.utility.CostValidator;
 import com.examle.springProject.domain.Account;
+import com.examle.springProject.domain.Payment;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.exceptions.CostValidateException;
 import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
 import com.examle.springProject.service.Acсount.AccountServiceImpl;
+import com.examle.springProject.service.Payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,19 +22,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 public class MainController {
     @Autowired
     AccountServiceImpl accountService;
+    @Autowired
+    PaymentService paymentService;
 
     @GetMapping("/")
-    public String greeting()
+    public String greeting(  @RequestParam("page") Optional<Integer> page,
+                             @RequestParam("size") Optional<Integer> size,
+                             Model model)
     {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        Page<Payment> payments = paymentService.findAll(PageRequest.of(currentPage - 1, pageSize));
+        int totalPages = payments.getTotalPages();
+        ControllerUtils.pageNumberCounts(totalPages , model);
+        model.addAttribute("payments" , payments);
         return "greeting.html";
     }
 
@@ -43,16 +53,9 @@ public class MainController {
                        Model model){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
-
         Page<Account> accounts = accountService.findAllByOwner(owner  , PageRequest.of(currentPage - 1, pageSize));
-       // List<Account> accounts = accountService.findAllAccountsByOwner(owner);
         int totalPages = accounts.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+        ControllerUtils.pageNumberCounts(totalPages , model);
         model.addAttribute("accounts" , accounts);
         return "main";
     }

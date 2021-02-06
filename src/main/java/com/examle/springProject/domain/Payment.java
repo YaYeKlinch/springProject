@@ -1,5 +1,6 @@
 package com.examle.springProject.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,9 +17,10 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String property;
+    private Long property;
     private String purpose;
 
     @OneToMany(mappedBy = "payment" , fetch = FetchType.LAZY)
     Set<UserPayment> userPayments;
+
 }

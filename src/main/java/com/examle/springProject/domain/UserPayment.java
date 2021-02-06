@@ -18,6 +18,7 @@ public class UserPayment {
 
     private boolean isSend;
     private LocalDateTime localDateTime;
+    private int cost;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -6,6 +6,29 @@
 <header th:replace="/fragment/navbar :: navbar"></header>
 <h1>Welcome!</h1>
 <p>It's payments project</p>
+    <div sec:authorize="hasAuthority('ADMIN')">
+    <a href="/add-payment">Add payment</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Property</th>
+            <th scope="col">Purpose</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr scope="row" th:each="payment : ${payments.content}">
+            <td th:text="${payment.property}"> </td>
+            <td th:text="${payment.purpose}"> </td>
+        </tr>
+    </table>
+    <ul th:if="${payments.totalPages > 0}" class="nav nav-tabs justify-content-center">
+        <li class="nav-item"  th:each="pageNumber : ${pageNumbers}">
+            <a th:href="@{/(size=${payments.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+               th:class="${pageNumber==payments.number + 1} ? active"></a>
+        </li>
+    </ul>
     </div>
 </body>
 </html>
