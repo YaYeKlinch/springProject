@@ -32,6 +32,6 @@ public class CreditCard {
     @JoinColumn(name="account_id", nullable=false)
     Account account;
 
-    @OneToMany(mappedBy = "creditCard" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "creditCard" , fetch = FetchType.EAGER)
     Set<UserPayment> userPayments;
 }

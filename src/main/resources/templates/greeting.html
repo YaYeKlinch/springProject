@@ -20,6 +20,7 @@
         <tr scope="row" th:each="payment : ${payments.content}">
             <td th:text="${payment.property}"> </td>
             <td th:text="${payment.purpose}"> </td>
+            <td><a th:href="@{/add-user-payment/{id}(id =${payment.id})}">addCosts</a></td>
         </tr>
     </table>
     <ul th:if="${payments.totalPages > 0}" class="nav nav-tabs justify-content-center">

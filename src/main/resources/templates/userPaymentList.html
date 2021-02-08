@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="/fragment/head :: head"></head>
+<body>
+<div class="container">
+    <header th:replace="/fragment/navbar :: navbar"></header>
+    <h1>My payments</h1>
+    <div th:unless="${#lists.isEmpty(user_payments.content)}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Property</th>
+            <th scope="col">Purpose</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Time</th>
+            <th scope="col">Card Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr scope="row" th:each="user_payment : ${user_payments.content}">
+            <td th:text="${user_payment.payment.property}"> </td>
+            <td th:text="${user_payment.payment.purpose}"> </td>
+            <td th:text="${user_payment.cost}"> </td>
+            <td th:text="${user_payment.localDateTime}"> </td>
+            <td th:text="${user_payment.creditCard.number}"> </td>
+        </tr>
+    </table>
+</div>
+</div>
+</body>
+</html>

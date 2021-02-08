@@ -36,9 +36,9 @@ public class User implements UserDetails {
 
 
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     Set<Account> accounts;
-    @OneToMany(mappedBy = "user" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
     Set<UserPayment> userPayments;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -128,5 +128,9 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
     }
 }

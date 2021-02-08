@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="/fragment/head :: head"></head>
+<body>
+<div class="container">
+    <header th:replace="/fragment/navbar :: navbar"></header>
+    <h1>Add payment</h1>
+    <form  th:action="@{|/add-user-payment/${paymentId}|}"  method="post" th:object="${userPayment}">
+        <label> Number:  <input type="number" th:field="*{number}"/></label>
+        <label> Pin: <input  type="number" th:field="*{pin}"/></label>
+        <label> Cost: <input  type="number" th:field="*{cost}"/></label>
+        <a th:text="${Error}"></a>
+        <div><input type="submit" value="add"/></div>
+    </form>
+</div>
+</body>
+</html>

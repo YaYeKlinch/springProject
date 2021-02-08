@@ -21,6 +21,9 @@
                     <a class="nav-link" aria-current="page" href="/user">Users</a>
                 </li>
                 </div>
+                <li class="nav-item"  th:if="${#authorization.expression('isAuthenticated()')}" >
+                    <a class="nav-link" aria-current="page" href="/payments">My payments</a>
+                </li>
             </ul>
             <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out"/>

@@ -20,7 +20,7 @@ public class Payment {
     private Long property;
     private String purpose;
 
-    @OneToMany(mappedBy = "payment" , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "payment" , fetch = FetchType.EAGER)
     Set<UserPayment> userPayments;
 
 }

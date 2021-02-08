@@ -13,5 +13,6 @@ public interface CreditCardRepo extends CrudRepository<CreditCard, Long>
         Optional<CreditCard> findById(Long aLong);
         Optional<CreditCard> findFirstByOrderByNumberDesc();
         Optional<CreditCard> findByCardType(CardType cardType);
+        Optional<CreditCard> findByNumber(Long number);
     }
 
