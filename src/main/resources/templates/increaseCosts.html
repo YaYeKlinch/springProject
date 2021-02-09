@@ -6,9 +6,10 @@
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
     <form  th:action="@{|/main/${accountId}|}"  method="post">
+        <a th:text="#{inputSum.text}"/>
         <input type="number" th:name="costs"/>
         <a th:text=${Error}></a></label>
-        <div><input type="submit" value="Edit"/></div>
+        <div><button class="btn" type="submit"  th:text="#{submit.button}"></button></div>
     </form>
 </div>
 </body>

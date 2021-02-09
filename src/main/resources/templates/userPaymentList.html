@@ -5,16 +5,16 @@
 <body>
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
-    <h1>My payments</h1>
+    <h1  th:text="#{myPayments.text}"></h1>
     <div th:unless="${#lists.isEmpty(user_payments.content)}">
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Property</th>
-            <th scope="col">Purpose</th>
-            <th scope="col">Cost</th>
-            <th scope="col">Time</th>
-            <th scope="col">Card Number</th>
+            <th scope="col"  th:text="#{property.text}"></th>
+            <th scope="col" th:text="#{purpose.text}"></th>
+            <th scope="col" th:text="#{cost.text}"></th>
+            <th scope="col" th:text="#{time.text}"></th>
+            <th scope="col" th:text="#{cardNumber.text}"></th>
         </tr>
         </thead>
         <tbody>

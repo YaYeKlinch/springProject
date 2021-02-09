@@ -7,12 +7,12 @@
     <header th:replace="/fragment/navbar :: navbar"></header>
     <a th:text="${name}"></a>
     <form th:action="@{/add-account}"  method="POST" th:object="${account}" >
-        <div><label> Account name: <input  th:field="*{name}" />
+        <div><label> <a th:text="#{accountName.text}"></a> <input  th:field="*{name}" />
             <a th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</a>
         </label></div>
-        <div><label> Account number: <input  th:field="*{number}" />
+        <div><label><a th:text="#{number.text}"></a> <input  th:field="*{number}" />
             <a th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Error</a></label></div>
-            <div><button class="btn" type="submit" >Add account</button></div>
+        <div><button class="btn" type="submit"  th:text="#{submit.button}"></button></div>
     </form>
 </div>
 </body>

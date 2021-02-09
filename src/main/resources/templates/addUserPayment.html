@@ -5,13 +5,13 @@
 <body>
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
-    <h1>Add payment</h1>
+    <h1 th:text="#{addPayment.text}"></h1>
     <form  th:action="@{|/add-user-payment/${paymentId}|}"  method="post" th:object="${userPayment}">
-        <label> Number:  <input type="number" th:field="*{number}"/></label>
-        <label> Pin: <input  type="number" th:field="*{pin}"/></label>
-        <label> Cost: <input  type="number" th:field="*{cost}"/></label>
+        <label> <a th:text="#{number.text}"/>  <input type="number" th:field="*{number}"/></label>
+        <label> <a th:text="#{pin.text}"/>  <input  type="number" th:field="*{pin}"/></label>
+        <label> <a th:text="#{cost.text}"/> <input  type="number" th:field="*{cost}"/></label>
         <a th:text="${Error}"></a>
-        <div><input type="submit" value="add"/></div>
+        <div><button class="btn" type="submit"  th:text="#{submit.button}"></button></div>
     </form>
 </div>
 </body>

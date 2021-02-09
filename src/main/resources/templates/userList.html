@@ -9,16 +9,16 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Role</th>
+        <th th:text="#{userName.text}"></th>
+        <th th:text="#{role.text}"></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
         <td> <span th:text="${user.username}"> Title </span><td/>
         <td> <span th:text="${user.roles}"> </span></td>
-        <td><a th:href="@{/user/{id}(id =${user.id})}">edit</a></td>
-        <td> <label><input type="checkbox" name="active"  th:checked="${user.active}"> Active</label></td>
+        <td><a th:href="@{/user/{id}(id =${user.id})}" th:text="#{edit.text}"></a></td>
+        <td> <label><input type="checkbox" name="active"  th:checked="${user.active}"> <a th:text="#{active.text}"></a></label></td>
     </tr>
     </tbody>
 </table>

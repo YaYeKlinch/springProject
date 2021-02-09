@@ -11,7 +11,7 @@
     <input type="hidden" th:field="*{username}" th:value="${user.username}"/>
     <input type="hidden" th:field="*{password}" th:value="${user.password}"/>
     <label><input type="checkbox" name="active" th:field="*{active}" th:checked="${user.active}"> Active</label>
-    <div><input type="submit" value="Edit"/></div>
+    <div><button class="btn" type="submit"  th:text="#{submit.button}"></button></div>
 </form>
     </div>
 </body>

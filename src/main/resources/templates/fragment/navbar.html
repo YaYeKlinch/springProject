@@ -4,7 +4,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Payments</a>
+        <a class="navbar-brand" href="#" th:text="#{payment.text}"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,19 +14,19 @@
                     <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" aria-current="page" href="/main">Main</a>
+                   <a class="nav-link" aria-current="page" href="/main" th:text="#{main.text}"></a>
                 </li>
                 <div sec:authorize="hasAuthority('ADMIN')">
                 <li class="nav-item"  th:if="${#authorization.expression('isAuthenticated()')}" >
-                    <a class="nav-link" aria-current="page" href="/user">Users</a>
+                    <a class="nav-link" aria-current="page" href="/user" th:text="#{users.text}"></a>
                 </li>
                 </div>
                 <li class="nav-item"  th:if="${#authorization.expression('isAuthenticated()')}" >
-                    <a class="nav-link" aria-current="page" href="/payments">My payments</a>
+                    <a class="nav-link" aria-current="page" href="/payments"  th:text="#{myPayments.text}"></a>
                 </li>
             </ul>
             <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
+                <div><button class="btn" type="submit"  th:text="#{signOut.button}"></button></div>
             </form>
         </div>
     </div>

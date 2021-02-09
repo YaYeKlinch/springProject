@@ -4,23 +4,23 @@
 <body>
 <div class="container">
 <header th:replace="/fragment/navbar :: navbar"></header>
-<h1>Welcome!</h1>
-<p>It's payments project</p>
+<h1  th:text="#{welcome.text}"></h1>
+<p th:text="#{paymentProject.text}"></p>
     <div sec:authorize="hasAuthority('ADMIN')">
-    <a href="/add-payment">Add payment</a>
+    <a href="/add-payment" th:text="#{addPayment.text}"></a>
     </div>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Property</th>
-            <th scope="col">Purpose</th>
+            <th scope="col" th:text="#{property.text}"></th>
+            <th scope="col" th:text="#{purpose.text}"></th>
         </tr>
         </thead>
         <tbody>
         <tr scope="row" th:each="payment : ${payments.content}">
             <td th:text="${payment.property}"> </td>
             <td th:text="${payment.purpose}"> </td>
-            <td><a th:href="@{/add-user-payment/{id}(id =${payment.id})}">addCosts</a></td>
+            <td><a th:href="@{/add-user-payment/{id}(id =${payment.id})}" th:text="#{makePayment.text}"></a></td>
         </tr>
     </table>
     <ul th:if="${payments.totalPages > 0}" class="nav nav-tabs justify-content-center">

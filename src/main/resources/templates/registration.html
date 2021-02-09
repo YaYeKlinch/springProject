@@ -8,10 +8,10 @@
 
 <a th:text="${name}"></a>
     <form th:action="@{/registration}"  method="POST" th:object="${user}" >
-        <div><label> firstName: <input  th:field="*{firstName}" />
+        <div><label><a th:text="#{name.text}"/> <input  th:field="*{firstName}" />
             <a th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</a>
         </label></div>
-        <div><label> lastName: <input  th:field="*{lastName}" />
+        <div><label> <a th:text="#{lastName.text}"/> <input  th:field="*{lastName}" />
             <a th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</a></label></div>
         <div><label> <a th:text="#{userName.text}"/> <input  th:field="*{email}" />
             <a th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</a></label></div>
