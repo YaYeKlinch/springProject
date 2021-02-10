@@ -6,7 +6,7 @@ import com.examle.springProject.domain.Payment;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.domain.UserPayment;
 import com.examle.springProject.exceptions.UserPaymentException;
-import com.examle.springProject.service.UserPaymentService.UserPaymentService;
+import com.examle.springProject.service.UserPaymentService.UserPaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @Controller
 public class UserPaymentController {
     @Autowired
-    UserPaymentService userPaymentService;
+    UserPaymentServiceImpl userPaymentServiceImpl;
 
     @GetMapping("/payments")
     public String paymentListForm(@AuthenticationPrincipal User user,
@@ -33,7 +33,7 @@ public class UserPaymentController {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
         Page <UserPayment> userPayments =
-                userPaymentService.findAllByUser(user.getId(), PageRequest.of(currentPage - 1, pageSize) );
+                userPaymentServiceImpl.findAllByUser(user.getId(), PageRequest.of(currentPage - 1, pageSize) );
         int totalPages = userPayments.getTotalPages();
         ControllerUtils.pageNumberCounts(totalPages , model);
         model.addAttribute("user_payments", userPayments);
@@ -54,7 +54,7 @@ public class UserPaymentController {
                                  Model model){
         try{
             model.addAttribute("userPayment",userPaymentDTO);
-            userPaymentService.createAndSaveUserPayment(userPaymentDTO,payment,user);
+            userPaymentServiceImpl.createAndSaveUserPayment(userPaymentDTO,payment,user);
         }catch (UserPaymentException|NullPointerException ex){
             model.addAttribute("Error" , ex.getMessage());
             return "addUserPayment";

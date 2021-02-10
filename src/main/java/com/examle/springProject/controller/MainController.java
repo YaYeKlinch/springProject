@@ -8,7 +8,7 @@ import com.examle.springProject.domain.User;
 import com.examle.springProject.exceptions.CostValidateException;
 import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
 import com.examle.springProject.service.Acсount.AccountServiceImpl;
-import com.examle.springProject.service.Payment.PaymentService;
+import com.examle.springProject.service.Payment.PaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +29,7 @@ public class MainController {
     @Autowired
     AccountServiceImpl accountService;
     @Autowired
-    PaymentService paymentService;
+    PaymentServiceImpl paymentServiceImpl;
 
     @GetMapping("/")
     public String greeting(  @RequestParam("page") Optional<Integer> page,
@@ -38,7 +38,7 @@ public class MainController {
     {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
-        Page<Payment> payments = paymentService.findAll(PageRequest.of(currentPage - 1, pageSize));
+        Page<Payment> payments = paymentServiceImpl.findAll(PageRequest.of(currentPage - 1, pageSize));
         int totalPages = payments.getTotalPages();
         ControllerUtils.pageNumberCounts(totalPages , model);
         model.addAttribute("payments" , payments);
