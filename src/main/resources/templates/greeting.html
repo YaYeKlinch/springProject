@@ -6,7 +6,7 @@
 <header th:replace="/fragment/navbar :: navbar"></header>
 <h1  th:text="#{welcome.text}"></h1>
 <p th:text="#{paymentProject.text}"></p>
-    <div sec:authorize="hasAuthority('ADMIN')">
+    <div sec:authorize="hasAuthority('ADMIN')" th:if="${#authorization.expression('isAuthenticated()')}">
     <a href="/add-payment" th:text="#{addPayment.text}"></a>
     </div>
     <table class="table">
@@ -20,7 +20,7 @@
         <tr scope="row" th:each="payment : ${payments.content}">
             <td th:text="${payment.property}"> </td>
             <td th:text="${payment.purpose}"> </td>
-            <td><a th:href="@{/add-user-payment/{id}(id =${payment.id})}" th:text="#{makePayment.text}"></a></td>
+            <td th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/add-user-payment/{id}(id =${payment.id})}" th:text="#{makePayment.text}"></a></td>
         </tr>
     </table>
     <ul th:if="${payments.totalPages > 0}" class="nav nav-tabs justify-content-center">
