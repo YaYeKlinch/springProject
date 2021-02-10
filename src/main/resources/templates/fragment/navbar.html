@@ -25,6 +25,11 @@
                     <a class="nav-link" aria-current="page" href="/payments"  th:text="#{myPayments.text}"></a>
                 </li>
             </ul>
+            <div>
+                <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/main}" ></a>
+                <a href="?lang=en">EN</a>
+                <a href="?lang=ua">UA</a>
+            </div>
             <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}" method="post">
                 <div><button class="btn" type="submit"  th:text="#{signOut.button}"></button></div>
             </form>
