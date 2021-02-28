@@ -32,6 +32,7 @@ public class CreditCardController {
     }
     @GetMapping("/main/credit-card/{accountId}")
     public String addCardForm(@PathVariable("accountId") Long accountId , Model model){
+        //перенести
         List<String> cardTypes = Stream.of(CardType.values())
                 .map(CardType::name)
                 .collect(Collectors.toList());

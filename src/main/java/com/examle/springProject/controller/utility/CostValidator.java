@@ -9,7 +9,7 @@ public class CostValidator {
         return costs<=MAX_COST && costs>0;
     }
     public static void  validateCost(Integer costs){
-        if (!CostValidator.isCostsCorrect(costs)) {
+        if (!isCostsCorrect(costs)) {
             throw new CostValidateException(
                     " Pin is incorrect ");
         }
