@@ -19,7 +19,7 @@
         <td> <span th:text="${user.username}"> </span></td>
         <td> <span th:text="${user.roles}"> </span></td>
         <td th:text="${user.active}"> </td>
-        <td><a th:href="@{/user/{id}(id =${user.id})}" th:text="#{edit.text}"></a></td>
+        <td><a class="btn btn-outline-primary" th:href="@{/user/{id}(id =${user.id})}" th:text="#{edit.text}"></a></td>
     </tr>
     </tbody>
 </table>

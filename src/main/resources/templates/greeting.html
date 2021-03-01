@@ -7,7 +7,7 @@
 <h1  th:text="#{welcome.text}"></h1>
 <p th:text="#{paymentProject.text}"></p>
     <div sec:authorize="hasAuthority('ADMIN')" th:if="${#authorization.expression('isAuthenticated()')}">
-    <a href="/add-payment" th:text="#{addPayment.text}"></a>
+    <a  class="btn btn-outline-primary" href="/add-payment" th:text="#{addPayment.text}"></a>
     </div>
     <table class="table">
         <thead>
@@ -20,12 +20,12 @@
         <tr scope="row" th:each="payment : ${payments.content}">
             <td th:text="${payment.property}"> </td>
             <td th:text="${payment.purpose}"> </td>
-            <td th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/add-user-payment/{id}(id =${payment.id})}" th:text="#{makePayment.text}"></a></td>
+            <td th:if="${#authorization.expression('isAuthenticated()')}"><a class="btn btn-outline-primary" th:href="@{/add-user-payment/{id}(id =${payment.id})}" th:text="#{makePayment.text}"></a></td>
         </tr>
     </table>
     <ul th:if="${payments.totalPages > 0}" class="nav nav-tabs justify-content-center">
         <li class="nav-item"  th:each="pageNumber : ${pageNumbers}">
-            <a th:href="@{/(size=${payments.size}, page=${pageNumber})}"
+            <a  th:href="@{/(size=${payments.size}, page=${pageNumber})}"
                th:text=${pageNumber}
                th:class="${pageNumber==payments.number + 1} ? active"></a>
         </li>
