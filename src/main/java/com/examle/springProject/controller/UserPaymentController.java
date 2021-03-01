@@ -55,7 +55,11 @@ public class UserPaymentController {
         try{
             model.addAttribute("userPayment",userPaymentDTO);
             userPaymentServiceImpl.createAndSaveUserPayment(userPaymentDTO,payment,user);
-        }catch (UserPaymentException|NullPointerException ex){
+        }catch (UserPaymentException ex){
+            model.addAttribute("Exception" , ex.getMessage());
+            return "addUserPayment";
+        }
+        catch (Exception ex){
             model.addAttribute("Error" , ex.getMessage());
             return "addUserPayment";
         }

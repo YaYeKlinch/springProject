@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class UserPaymentServiceImpl implements UserPaymentService{
@@ -33,15 +34,19 @@ public class UserPaymentServiceImpl implements UserPaymentService{
     public void createAndSaveUserPayment(UserPaymentDTO userPaymentDTO, Payment payment, User user)
      throws UserPaymentException{
        UserPayment userPaymentToCreate = new UserPayment();
-        CreditCard creditCard = creditCardRepo.findByNumber(userPaymentDTO.getNumber()).get();
-        if(!isNumberCardExists(user , userPaymentDTO.getNumber())){
+        if(!findCard(user,userPaymentDTO.getNumber()).isPresent()){
             throw new UserPaymentException(
                     "There is no card with this number: "
                             +  userPaymentDTO.getNumber());
         }
+        CreditCard creditCard = findCard(user,userPaymentDTO.getNumber()).get();
         if(!isPinCorrect(userPaymentDTO.getPin() , creditCard.getPin())){
             throw new UserPaymentException(
                     "Pin is incorrect");
+        }
+        if(creditCard.getAccount().isBlocked()){
+            throw new UserPaymentException(
+                    "Account is blocked");
         }
         Account account = creditCard.getAccount();
         account.setCosts(account.getCosts() - userPaymentDTO.getCost());
@@ -57,9 +62,10 @@ public class UserPaymentServiceImpl implements UserPaymentService{
     private boolean isPinCorrect(int correctPin , int pin){
        return correctPin==pin;
     }
-    private boolean isNumberCardExists(User user , Long number){
-     return  user.getAccounts().stream().map(Account::getCreditCards)
+
+   private Optional<CreditCard> findCard(User user , Long number){
+      return user.getAccounts().stream().map(Account::getCreditCards)
                .flatMap(Collection::stream)
-               .anyMatch(creditCard -> creditCard.getNumber().equals(number));
+               .filter(creditCard -> creditCard.getNumber().equals(number)).findAny();
    }
 }
