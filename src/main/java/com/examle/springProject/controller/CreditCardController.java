@@ -1,5 +1,6 @@
 package com.examle.springProject.controller;
 
+import com.examle.springProject.controller.utility.ControllerUtils;
 import com.examle.springProject.controller.utility.PinValidator;
 import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.CardType;
@@ -31,13 +32,12 @@ public class CreditCardController {
      return "creditCardList";
     }
     @GetMapping("/main/credit-card/{accountId}")
-    public String addCardForm(@PathVariable("accountId") Long accountId , Model model){
-        //перенести
-        List<String> cardTypes = Stream.of(CardType.values())
-                .map(CardType::name)
-                .collect(Collectors.toList());
-        model.addAttribute("cardTypes",cardTypes );
-        model.addAttribute("accountId", accountId);
+    public String addCardForm(@PathVariable("accountId") Account account , Model model){
+        model.addAttribute("cardTypes", ControllerUtils.getCardTypes());
+        model.addAttribute("accountId", account.getId());
+        if(account.isBlocked()){
+            return "redirect:/main";
+        }
         return "addCreditCard";
     }
     @PostMapping("/main/credit-card/{account}")
@@ -54,6 +54,7 @@ public class CreditCardController {
             creditCardServiceImpl.createAndSaveCard(account , pin , cardType);
         }catch (PinValidateException|NullPointerException|TypeCardException ex){
             model.addAttribute("Exception" , ex.getMessage());
+            model.addAttribute("cardTypes", ControllerUtils.getCardTypes());
             return "addCreditCard";
         }
         return "redirect:/main/credit-card-list/{account}";
