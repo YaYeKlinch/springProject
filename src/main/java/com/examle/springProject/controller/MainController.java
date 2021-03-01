@@ -12,6 +12,7 @@ import com.examle.springProject.service.Payment.PaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,10 +51,11 @@ public class MainController {
     public String main(@AuthenticationPrincipal User owner,
                        @RequestParam("page") Optional<Integer> page,
                        @RequestParam("size") Optional<Integer> size,
+                       @RequestParam(value = "sort", required = false) String sortBy,
+                       @RequestParam(value = "nameBy", required = false) String nameBy,
                        Model model){
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        Page<Account> accounts = accountService.findAllByOwner(owner  , PageRequest.of(currentPage - 1, pageSize));
+        Sort sort = ControllerUtils.getSort(sortBy , nameBy , model);
+        Page<Account> accounts = accountService.findAllByOwner(owner,page,size,sort);
         int totalPages = accounts.getTotalPages();
         ControllerUtils.pageNumberCounts(totalPages , model);
         model.addAttribute("accounts" , accounts);

@@ -17,6 +17,18 @@
         </tr>
         </thead>
         <tbody>
+        <td>
+            <a class="btn btn-outline-primary" th:href="@{/main(sort='DESC', nameBy='name')}"  th:text="#{sort.desc}"></a>
+            <a class="btn btn-outline-primary" th:href="@{/main(sort='ASC', nameBy='name')}"  th:text="#{sort.asc}"></a>
+        </td>
+        <td>
+            <a class="btn btn-outline-primary" th:href="@{/main(sort='DESC', nameBy='number')}"  th:text="#{sort.desc}"></a>
+            <a class="btn btn-outline-primary" th:href="@{/main(sort='ASC', nameBy='number')}"  th:text="#{sort.asc}"></a>
+        </td>
+        <td>
+            <a class="btn btn-outline-primary" th:href="@{/main(sort='DESC', nameBy='costs')}"  th:text="#{sort.desc}"></a>
+            <a class="btn btn-outline-primary" th:href="@{/main(sort='ASC', nameBy='costs')}"  th:text="#{sort.asc}"></a>
+        </td>
         <tr scope="row" th:each="account : ${accounts.content}">
             <td th:text="${account.name}"> </td>
             <td th:text="${account.number}"> </td>
@@ -31,7 +43,7 @@
     </table>
     <ul th:if="${accounts.totalPages > 0}" class="nav nav-tabs justify-content-center">
         <li class="nav-item"  th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/main(size=${accounts.size}, page=${pageNumber})}"
+        <a th:href="@{/main(size=${accounts.size}, page=${pageNumber} , sort=${sort}, nameBy=${nameBy})}"
            th:text=${pageNumber}
            th:class="${pageNumber==accounts.number + 1} ? active"></a>
         </li>

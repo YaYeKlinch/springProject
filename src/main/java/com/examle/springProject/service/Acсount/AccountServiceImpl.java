@@ -6,10 +6,13 @@ import com.examle.springProject.domain.User;
 import com.examle.springProject.repos.AccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService{
@@ -21,8 +24,17 @@ public class AccountServiceImpl implements AccountService{
     public List<Account> findAllAccountsByOwner(User owner) {
         return accountRepo.findAccountsByOwner_id(owner.getId());
     }
-    public Page<Account> findAllByOwner(User owner , Pageable pageable){
-        return accountRepo.findAllByOwner_id(owner.getId() , pageable);
+    public Page<Account> findAllByOwner(User owner , Optional<Integer> page, Optional<Integer> size, Sort sort ){
+        PageRequest pageRequest = null;
+        int currentPage = page.orElse(1);
+        int sizeOfPage = size.orElse(5);
+        if(sort==null){
+            pageRequest = PageRequest.of(currentPage -1, sizeOfPage);
+        }
+        else {
+            pageRequest = PageRequest.of(currentPage - 1 , sizeOfPage , sort);
+        }
+        return accountRepo.findAllByOwner_id(owner.getId() , pageRequest);
     }
 
     @Override
