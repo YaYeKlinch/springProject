@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public void createAccount(AccountDTO accountDTO , User owner) throws AccountAlreadyExistsException{
-        if (accountExist(accountDTO.getNumber(), owner.getId())) {
+        if (accountExist(accountDTO.getNumber(), owner)) {
             throw new AccountAlreadyExistsException(
                     "There is an account with that number: "
                             +  accountDTO.getNumber());
@@ -68,6 +68,7 @@ public class AccountServiceImpl implements AccountService{
         accountRepo.save(account);
     }
 
-    private boolean accountExist(String number ,Long owner_id){
-        return accountRepo.findAccountsByOwner_idAndNumber(owner_id , number).size() != 0;}
+    private boolean accountExist(String number ,User owner) {
+        return owner.getAccounts().stream().anyMatch(account -> account.getNumber().equals(number));
+    }
 }

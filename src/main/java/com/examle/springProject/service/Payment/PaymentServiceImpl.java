@@ -3,13 +3,13 @@ package com.examle.springProject.service.Payment;
 import com.examle.springProject.controller.Dto.PaymentDTO;
 import com.examle.springProject.domain.Payment;
 import com.examle.springProject.exceptions.PaymentAlreadyExistsException;
-import com.examle.springProject.exceptions.UserAlreadyExistException;
 import com.examle.springProject.repos.PaymentRepo;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 
 @Service
@@ -19,6 +19,7 @@ public class PaymentServiceImpl implements PaymentService{
 
 
     @Override
+    @Transactional
     public void createAndSavePayment(PaymentDTO paymentDTO) throws  PaymentAlreadyExistsException{
         if (isPropertyExist(paymentDTO.getProperty())) {
             throw new PaymentAlreadyExistsException(

@@ -4,7 +4,7 @@ import com.examle.springProject.controller.Dto.PaymentDTO;
 import com.examle.springProject.controller.utility.PaymentValidator;
 import com.examle.springProject.exceptions.PaymentAlreadyExistsException;
 import com.examle.springProject.exceptions.PaymentValidateException;
-import com.examle.springProject.service.Payment.PaymentServiceImpl;
+import com.examle.springProject.service.Payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class PaymentController {
     @Autowired
-    PaymentServiceImpl paymentServiceImpl;
+    PaymentService paymentServiceImpl;
 
     @GetMapping("/add-payment")
     public String addPaymentForm(Model model){

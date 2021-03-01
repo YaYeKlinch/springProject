@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     Validator validator = factory.getValidator();
     @Autowired
     private UserRepo userRepo;
+    private User user;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

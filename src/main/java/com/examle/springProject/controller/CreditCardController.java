@@ -6,7 +6,7 @@ import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.CardType;
 import com.examle.springProject.exceptions.PinValidateException;
 import com.examle.springProject.exceptions.TypeCardException;
-import com.examle.springProject.service.CreditCard.CreditCardServiceImpl;
+import com.examle.springProject.service.CreditCard.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 public class CreditCardController {
     @Autowired
-    CreditCardServiceImpl creditCardServiceImpl;
+    CreditCardService creditCardServiceImpl;
 
     @GetMapping("/main/credit-card-list/{account}")
     public String creditCardList(@PathVariable("account") Account account ,

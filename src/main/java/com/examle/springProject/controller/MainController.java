@@ -7,8 +7,8 @@ import com.examle.springProject.domain.Payment;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.exceptions.CostValidateException;
 import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
-import com.examle.springProject.service.Acсount.AccountServiceImpl;
-import com.examle.springProject.service.Payment.PaymentServiceImpl;
+import com.examle.springProject.service.Acсount.AccountService;
+import com.examle.springProject.service.Payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,9 +28,9 @@ import java.util.Optional;
 @Controller
 public class MainController {
     @Autowired
-    AccountServiceImpl accountService;
+    AccountService accountService;
     @Autowired
-    PaymentServiceImpl paymentServiceImpl;
+    PaymentService paymentServiceImpl;
 
     @GetMapping("/")
     public String greeting(  @RequestParam("page") Optional<Integer> page,

@@ -4,15 +4,14 @@ import com.examle.springProject.controller.Dto.UserPaymentDTO;
 import com.examle.springProject.domain.*;
 import com.examle.springProject.exceptions.UserPaymentException;
 import com.examle.springProject.repos.AccountRepo;
-import com.examle.springProject.repos.CreditCardRepo;
 import com.examle.springProject.repos.UserPaymentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
@@ -21,8 +20,6 @@ import java.util.Optional;
 public class UserPaymentServiceImpl implements UserPaymentService{
     @Autowired
     UserPaymentRepo userPaymentRepo;
-    @Autowired
-    CreditCardRepo creditCardRepo;
     @Autowired
     AccountRepo accountRepo;
 
@@ -42,6 +39,7 @@ public class UserPaymentServiceImpl implements UserPaymentService{
 
 
     @Override
+    @Transactional
     public void createAndSaveUserPayment(UserPaymentDTO userPaymentDTO, Payment payment, User user)
      throws UserPaymentException{
        UserPayment userPaymentToCreate = new UserPayment();
