@@ -51,6 +51,12 @@ public class AccountServiceImpl implements AccountService{
         return accountRepo.findById(id).get();
     }
 
+    @Override
+    public void changePermission(Account account) {
+        account.setBlocked(!account.isBlocked());
+        accountRepo.save(account);
+    }
+
     private boolean accountExist(String number ,Long owner_id){
         return accountRepo.findAccountsByOwner_idAndNumber(owner_id , number).size() != 0;}
 }

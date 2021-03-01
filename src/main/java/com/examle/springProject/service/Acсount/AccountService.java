@@ -9,10 +9,9 @@ import java.util.List;
 public interface AccountService {
 
     List<Account> findAllAccountsByOwner(User owner);
-
     void createAccount(AccountDTO accountDTO , User owner) throws AccountAlreadyExistsException;
-
     void increaseCosts(Long accountId , int costs);
-
     Account findById(Long id);
+    void changePermission(Account account);
+
 }

@@ -30,6 +30,7 @@
             <td th:text="${account.number}"> </td>
             <td th:text="${account.costs}">> </td>
             <td th:text="${account.blocked}">> </td>
+            <td><a class="btn btn-outline-primary" th:href="@{/user/change-permission/{id}(id =${account.id})}" th:text="#{changePermission.button}"></a></td>
         </tr>
     </table>
     </div>

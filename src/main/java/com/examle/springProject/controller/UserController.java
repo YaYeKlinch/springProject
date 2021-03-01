@@ -1,7 +1,9 @@
 package com.examle.springProject.controller;
 
+import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.repos.UserRepo;
+import com.examle.springProject.service.Acсount.AccountService;
 import com.examle.springProject.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping
     public String userList(@AuthenticationPrincipal User user,
@@ -25,17 +29,27 @@ public class UserController {
         List<User> users = userService.findAll();
         users.remove(user);
         model.addAttribute("users" , users);
+
         return "userList";
     }
     @GetMapping("/{user}")
-    public String userEditForm( @PathVariable("user") User user, Model model){
+    public String userEditForm( @AuthenticationPrincipal User owner,@PathVariable("user") User user, Model model){
+        if(owner.equals(user)){
+            return "redirect:/user";
+        }
         model.addAttribute("user" , user);
         model.addAttribute("userAccounts" , user.getAccounts());
+
         return "userEdit";
     }
     @PostMapping("")
     public String userSave(User user) {
         userService.update(user);
+        return "redirect:/user";
+    }
+    @GetMapping("/change-permission/{account}")
+    public String changePermission(@PathVariable("account") Account account){
+        accountService.changePermission(account);
         return "redirect:/user";
     }
 }
