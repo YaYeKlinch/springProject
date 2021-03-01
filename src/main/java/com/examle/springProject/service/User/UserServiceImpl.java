@@ -16,6 +16,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,17 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         userToCreate.setRoles(Collections.singleton(Role.USER));
         return Optional.ofNullable(userRepo.save(userToCreate));
     }
+
+    @Override
+    public List<User> findAll() {
+        return userRepo.findAll();
+    }
+
+    @Override
+    public void update(User user) {
+        userRepo.save(user);
+    }
+
     private boolean emailExists(String email){
         return userRepo.findByUsername(email) != null;
     }

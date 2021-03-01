@@ -7,12 +7,35 @@
 <header th:replace="/fragment/navbar :: navbar"></header>
 <form  th:action="@{/user}"  method="post" th:object="${user}">
     <input type="hidden" th:field="*{id}" th:value="${user.id}"/>
+    <input type="hidden" th:field="*{firsName}" th:value="${user.firsName}"/>
+    <input type="hidden" th:field="*{lastName}" th:value="${user.lastName}"/>
     <input type="hidden" th:field="*{roles}" th:value="${user.roles}"/>
     <input type="hidden" th:field="*{username}" th:value="${user.username}"/>
     <input type="hidden" th:field="*{password}" th:value="${user.password}"/>
     <label><input type="checkbox" name="active" th:field="*{active}" th:checked="${user.active}"> Active</label>
     <div><button class="btn" type="submit"  th:text="#{submit.button}"></button></div>
 </form>
+    <div th:unless="${#lists.isEmpty(userAccounts)}">
+    <table  class="table">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{accountName.text}"></th>
+            <th scope="col" th:text="#{number.text}"></th>
+            <th scope="col" th:text="#{cost.text}"></th>
+            <th scope="col" th:text="#{account.isBlocked}"></th>
+        </tr>
+        </thead>
+        <tr scope="row" th:each="account : ${userAccounts}">
+            <td th:text="${account.name}"> </td>
+            <td th:text="${account.number}"> </td>
+            <td th:text="${account.costs}">> </td>
+            <td th:text="${account.blocked}">> </td>
+        </tr>
+    </table>
+    </div>
+    <div th:if="${#lists.isEmpty(userAccounts)}">
+        <h2 th:text="#{user.noAccount}"></h2>
+    </div>
     </div>
 </body>
 </html>

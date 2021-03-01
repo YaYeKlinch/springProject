@@ -6,19 +6,20 @@
 <div class="container">
 <header th:replace="/fragment/navbar :: navbar"></header>
 
-<table>
+<table  class="table">
     <thead>
     <tr>
         <th th:text="#{userName.text}"></th>
         <th th:text="#{role.text}"></th>
+        <th th:text="#{user.isActive}"></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
-        <td> <span th:text="${user.username}"> Title </span><td/>
+        <td> <span th:text="${user.username}"> </span></td>
         <td> <span th:text="${user.roles}"> </span></td>
+        <td th:text="${user.active}"> </td>
         <td><a th:href="@{/user/{id}(id =${user.id})}" th:text="#{edit.text}"></a></td>
-        <td> <label><input type="checkbox" name="active"  th:checked="${user.active}"> <a th:text="#{active.text}"></a></label></td>
     </tr>
     </tbody>
 </table>
