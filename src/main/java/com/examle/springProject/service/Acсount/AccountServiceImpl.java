@@ -41,8 +41,7 @@ public class AccountServiceImpl implements AccountService{
         accountRepo.save(accountToCreate);
     }
     @Override
-    public void increaseCosts(Long accountId, int costs) {
-        Account account = findById(accountId);
+    public void increaseCosts( Account account, int costs) {
         account.setCosts(account.getCosts()+costs);
         accountRepo.save(account);
     }

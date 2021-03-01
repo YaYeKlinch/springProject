@@ -23,7 +23,9 @@
             <td th:text="${account.costs}">> </td>
             <td><a class="btn btn-outline-primary" th:href="@{/main/credit-card-list/{id}(id =${account.id})}" th:text="#{myCards.text}"></a></td>
             <div th:unless="${#lists.isEmpty(account.getCreditCards())}">
+                <div th:unless="${account.blocked}">
                 <td><a class="btn btn-outline-primary" th:href="@{/main/{id}(id =${account.id})}" th:text="#{addCosts.text}"></a></td>
+                </div>
             </div>
         </tr>
     </table>

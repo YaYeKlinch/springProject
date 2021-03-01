@@ -10,7 +10,7 @@ public interface AccountService {
 
     List<Account> findAllAccountsByOwner(User owner);
     void createAccount(AccountDTO accountDTO , User owner) throws AccountAlreadyExistsException;
-    void increaseCosts(Long accountId , int costs);
+    void increaseCosts(Account account, int costs);
     Account findById(Long id);
     void changePermission(Account account);
 

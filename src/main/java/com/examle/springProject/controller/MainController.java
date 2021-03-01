@@ -86,19 +86,22 @@ public class MainController {
         return new ModelAndView("redirect:/main","account",  accountDTO);
     }
     @GetMapping("/main/{accountId}")
-    public String increaseCostsForm( @PathVariable("accountId") Long accountId ,Model model ){
-        model.addAttribute("accountId" , accountId);
+    public String increaseCostsForm( @PathVariable("accountId") Account account ,Model model ){
+        model.addAttribute("accountId" , account.getId());
+        if(account.isBlocked()){
+            return "redirect:/main";
+        }
         return "increaseCosts";
     }
     @PostMapping("/main/{accountId}")
     public String increaseCosts(
-            @PathVariable("accountId") Long accountId,
+            @PathVariable("accountId") Account account,
             @NotEmpty Integer costs,
             Model model) {
         try {
             CostValidator.validateCost(costs);
             model.addAttribute("costs", costs);
-            accountService.increaseCosts(accountId , costs);
+            accountService.increaseCosts(account , costs);
         } catch (CostValidateException|NullPointerException ex){
             model.addAttribute("Error" , "Costs must be less then" + CostValidator.MAX_COST);
             return "increaseCosts";
