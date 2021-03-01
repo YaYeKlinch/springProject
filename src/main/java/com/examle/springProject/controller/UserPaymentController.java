@@ -6,10 +6,11 @@ import com.examle.springProject.domain.Payment;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.domain.UserPayment;
 import com.examle.springProject.exceptions.UserPaymentException;
-import com.examle.springProject.service.UserPaymentService.UserPaymentServiceImpl;
+import com.examle.springProject.service.UserPaymentService.UserPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +24,18 @@ import java.util.Optional;
 @Controller
 public class UserPaymentController {
     @Autowired
-    UserPaymentServiceImpl userPaymentServiceImpl;
+    UserPaymentService userPaymentServiceImpl;
 
     @GetMapping("/payments")
     public String paymentListForm(@AuthenticationPrincipal User user,
                                   @RequestParam("page") Optional<Integer> page,
                                   @RequestParam("size") Optional<Integer> size,
+                                  @RequestParam(value = "sort", required = false) String sortBy,
+                                  @RequestParam(value = "nameBy", required = false) String nameBy,
                                   Model model){
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
+        Sort sort = ControllerUtils.getSort(sortBy , nameBy , model);
         Page <UserPayment> userPayments =
-                userPaymentServiceImpl.findAllByUser(user.getId(), PageRequest.of(currentPage - 1, pageSize) );
+                userPaymentServiceImpl.findAllByUser(user.getId(), page, size, sort );
         int totalPages = userPayments.getTotalPages();
         ControllerUtils.pageNumberCounts(totalPages , model);
         model.addAttribute("user_payments", userPayments);

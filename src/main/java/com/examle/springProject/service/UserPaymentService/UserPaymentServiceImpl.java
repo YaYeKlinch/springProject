@@ -8,7 +8,9 @@ import com.examle.springProject.repos.CreditCardRepo;
 import com.examle.springProject.repos.UserPaymentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,8 +27,17 @@ public class UserPaymentServiceImpl implements UserPaymentService{
     AccountRepo accountRepo;
 
     @Override
-   public Page<UserPayment> findAllByUser(Long id , Pageable pageable){
-      return   userPaymentRepo.findAllByUser_id(id , pageable);
+   public Page<UserPayment> findAllByUser(Long id , Optional<Integer> page , Optional<Integer> size , Sort sort){
+        PageRequest pageRequest = null;
+        int currentPage = page.orElse(1);
+        int sizeOfPage = size.orElse(5);
+        if(sort==null){
+            pageRequest = PageRequest.of(currentPage -1, sizeOfPage);
+        }
+        else {
+            pageRequest = PageRequest.of(currentPage - 1 , sizeOfPage , sort);
+        }
+      return   userPaymentRepo.findAllByUser_id(id , pageRequest);
     }
 
 

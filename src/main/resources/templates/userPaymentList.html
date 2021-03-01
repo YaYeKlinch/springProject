@@ -18,14 +18,29 @@
         </tr>
         </thead>
         <tbody>
+        <td>
+            <a class="btn btn-outline-primary" th:href="@{/payments(sort='DESC', nameBy='payment.property')}"  th:text="#{sort.desc}"></a>
+            <a class="btn btn-outline-primary" th:href="@{/payments(sort='ASC', nameBy='payment.property')}"  th:text="#{sort.asc}"></a>
+        </td>
+        <td>
+            <a class="btn btn-outline-primary" th:href="@{/payments(sort='DESC', nameBy='localDateTime')}"  th:text="#{sort.desc}"></a>
+            <a class="btn btn-outline-primary" th:href="@{/payments(sort='ASC', nameBy='localDateTime')}"  th:text="#{sort.asc}"></a>
+        </td>
         <tr scope="row" th:each="user_payment : ${user_payments.content}">
             <td th:text="${user_payment.payment.property}"> </td>
+            <td th:text="${user_payment.localDateTime}"> </td>
             <td th:text="${user_payment.payment.purpose}"> </td>
             <td th:text="${user_payment.cost}"> </td>
-            <td th:text="${user_payment.localDateTime}"> </td>
             <td th:text="${user_payment.creditCard.number}"> </td>
         </tr>
     </table>
+        <ul th:if="${user_payments.totalPages > 0}" class="nav nav-tabs justify-content-center">
+            <li class="nav-item"  th:each="pageNumber : ${pageNumbers}">
+                <a th:href="@{/payments(size=${user_payments.size}, page=${pageNumber} , sort=${sort}, nameBy=${nameBy})}"
+                   th:text=${pageNumber}
+                   th:class="${pageNumber==user_payments.number + 1} ? active"></a>
+            </li>
+        </ul>
 </div>
 </div>
 </body>
