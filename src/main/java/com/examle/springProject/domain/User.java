@@ -58,6 +58,13 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    public User() {
+    }
+
+    public User(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
        return username;
     }

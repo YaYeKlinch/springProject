@@ -22,4 +22,11 @@ public class AccountDTO {
     @Size(min = 10 , max = 10)
     String number;
 
+    public AccountDTO() {
+    }
+
+    public AccountDTO(@NotBlank @Size(min = 2, max = 30) String name, @NotBlank @Size(min = 10, max = 10) String number) {
+        this.name = name;
+        this.number = number;
+    }
 }

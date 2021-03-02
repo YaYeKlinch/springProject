@@ -72,7 +72,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     private boolean accountExist(String number ,User owner) {
-        logger.info("trying to find account whith number " + number + "of user with id " + owner.getId());
+        logger.info("trying to find account with number " + number + "of user with id " + owner.getId());
         return owner.getAccounts().stream().anyMatch(account -> account.getNumber().equals(number));
     }
 }
