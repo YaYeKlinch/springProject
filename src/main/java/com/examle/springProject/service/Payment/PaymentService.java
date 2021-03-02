@@ -7,6 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PaymentService {
-    public void createAndSavePayment(PaymentDTO paymentDTO) throws PaymentAlreadyExistsException;
-    public Page<Payment> findAll(Pageable pageable);
+    void createAndSavePayment(PaymentDTO paymentDTO) throws PaymentAlreadyExistsException;
+    Page<Payment> findAll(Pageable pageable);
 }

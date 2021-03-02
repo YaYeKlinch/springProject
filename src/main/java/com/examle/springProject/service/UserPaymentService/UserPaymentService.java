@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort;
 import java.util.Optional;
 
 public interface UserPaymentService {
-    public Page<UserPayment> findAllByUser(Long id , Optional<Integer> page , Optional<Integer> size , Sort sort);
-    public void createAndSaveUserPayment(UserPaymentDTO userPaymentDTO, Payment payment, User user)
+    Page<UserPayment> findAllByUser(Long id , Optional<Integer> page , Optional<Integer> size , Sort sort);
+    void createAndSaveUserPayment(UserPaymentDTO userPaymentDTO, Payment payment, User user)
             throws UserPaymentException;
 }

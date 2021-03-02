@@ -1,4 +1,4 @@
-package com.examle.springProject.service.Acсount;
+package com.examle.springProject.exceptions;
 
 public class AccountAlreadyExistsException extends RuntimeException{
     public AccountAlreadyExistsException() {

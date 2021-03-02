@@ -5,6 +5,8 @@ import com.examle.springProject.domain.Role;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.repos.UserRepo;
 import com.examle.springProject.exceptions.UserAlreadyExistException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,21 +23,25 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserDetailsService, UserService {
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
     @Autowired
     private UserRepo userRepo;
-    private User user;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("trying to find user with username " + username);
         return userRepo.findByUsername(username);
     }
 
     @Override
     @Transactional
     public Optional<User> registerUser(UserDTO userDto) throws UserAlreadyExistException {
+        logger.info("trying to register user with username " + userDto.getEmail());
             if (emailExists(userDto.getEmail())) {
+                logger.info("tried to register user with username " + userDto.getEmail() +
+                        ", throwing UserAlreadyExistException");
                 throw new UserAlreadyExistException(
                         "There is an account with that email address: "
                                 +  userDto.getEmail());
@@ -53,15 +59,18 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public List<User> findAll() {
+        logger.info("trying to find all users");
         return userRepo.findAll();
     }
 
     @Override
     public void update(User user) {
+        logger.info("trying to update user with id " + user.getId());
         userRepo.save(user);
     }
 
     private boolean emailExists(String email){
+        logger.info("trying to find user with email" +  email);
         return userRepo.findByUsername(email) != null;
     }
 

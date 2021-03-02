@@ -6,7 +6,7 @@ import com.examle.springProject.domain.Account;
 import com.examle.springProject.domain.Payment;
 import com.examle.springProject.domain.User;
 import com.examle.springProject.exceptions.CostValidateException;
-import com.examle.springProject.service.Acсount.AccountAlreadyExistsException;
+import com.examle.springProject.exceptions.AccountAlreadyExistsException;
 import com.examle.springProject.service.Acсount.AccountService;
 import com.examle.springProject.service.Payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,5 +5,5 @@ import com.examle.springProject.domain.CardType;
 import com.examle.springProject.exceptions.TypeCardException;
 
 public interface CreditCardService {
-    public void createAndSaveCard(Account account , int pin , CardType type) throws TypeCardException;
+    void createAndSaveCard(Account account , int pin , CardType type) throws TypeCardException;
 }
