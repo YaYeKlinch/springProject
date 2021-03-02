@@ -7,6 +7,8 @@ import com.examle.springProject.domain.User;
 import com.examle.springProject.domain.UserPayment;
 import com.examle.springProject.exceptions.UserPaymentException;
 import com.examle.springProject.service.UserPaymentService.UserPaymentService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,7 @@ import java.util.Optional;
 
 @Controller
 public class UserPaymentController {
+    private static final Logger logger = LogManager.getLogger(UserPaymentController.class);
     @Autowired
     UserPaymentService userPaymentServiceImpl;
 
@@ -33,20 +36,24 @@ public class UserPaymentController {
                                   @RequestParam(value = "sort", required = false) String sortBy,
                                   @RequestParam(value = "nameBy", required = false) String nameBy,
                                   Model model){
+        logger.debug("requested /payments get method");
         Sort sort = ControllerUtils.getSort(sortBy , nameBy , model);
         Page <UserPayment> userPayments =
                 userPaymentServiceImpl.findAllByUser(user.getId(), page, size, sort );
         int totalPages = userPayments.getTotalPages();
         ControllerUtils.pageNumberCounts(totalPages , model);
         model.addAttribute("user_payments", userPayments);
+        logger.debug("returning userPaymentList.html to user");
         return "userPaymentList";
     }
     @GetMapping("/add-user-payment/{payment}")
     public String addUserPaymentForm(@PathVariable("payment")Payment payment,
             Model model){
+        logger.debug("requested /add-user-payment"+ payment.getId() +" get method");
         UserPaymentDTO userPaymentDTO = new UserPaymentDTO();
         model.addAttribute("userPayment" , userPaymentDTO);
         model.addAttribute("paymentId" , payment.getId());
+        logger.debug("returning addUserPayment.html to user");
         return "addUserPayment";
     }
     @PostMapping("/add-user-payment/{payment}")
@@ -54,17 +61,21 @@ public class UserPaymentController {
                                  @PathVariable("payment")Payment payment,
                                  UserPaymentDTO userPaymentDTO,
                                  Model model){
+        logger.debug("requested /add-user-payment"+ payment.getId() +" post method");
         try{
             model.addAttribute("userPayment",userPaymentDTO);
             userPaymentServiceImpl.createAndSaveUserPayment(userPaymentDTO,payment,user);
         }catch (UserPaymentException ex){
+            logger.debug("userPaymentDTO has errors returning addUserPayment.html");
             model.addAttribute("Exception" , ex.getMessage());
             return "addUserPayment";
         }
         catch (Exception ex){
+            logger.debug("errors happened returning addUserPayment.html");
             model.addAttribute("Error" , ex.getMessage());
             return "addUserPayment";
         }
+        logger.debug("redirecting on /");
         return "redirect:/";
 
     }
