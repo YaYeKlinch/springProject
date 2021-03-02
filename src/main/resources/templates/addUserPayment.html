@@ -6,6 +6,7 @@
 <div class="container">
     <header th:replace="/fragment/navbar :: navbar"></header>
     <h1 th:text="#{addPayment.text}"></h1>
+    <label th:text="${Exception}"></label>
     <form  th:action="@{|/add-user-payment/${paymentId}|}"  method="post" th:object="${userPayment}">
         <label> <a th:text="#{number.text}"/>  <input type="number" th:field="*{number}"/></label>
         <label> <a th:text="#{pin.text}"/>  <input  type="number" th:field="*{pin}"/></label>
