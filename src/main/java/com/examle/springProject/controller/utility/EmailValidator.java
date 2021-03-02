@@ -9,7 +9,7 @@ public class EmailValidator implements ConstraintValidator<EmailValidation, Stri
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String EMAIL_PATTERN = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    private static final String EMAIL_PATTERN = "^(?d)(?=.{2,64}@)[\\w!#$%&'*+\\-\\/=?^`{|}~]+(\\.[\\w!#$%&'*+\\-\\/=?^`{|}~]+)*@[\\w\\-&&[^_]]{1,63}(\\.[\\w\\-&&[^_]]{1,63})+$";
     @Override
     public void initialize(EmailValidation constraintAnnotation) {
     }
