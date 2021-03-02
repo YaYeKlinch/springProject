@@ -32,8 +32,7 @@ public class UserPaymentServiceImpl implements UserPaymentService{
         int currentPage = page.orElse(1);
         int sizeOfPage = size.orElse(5);
         logger.debug("Trying to find all userPayments from user with id:"
-                + id + "on page" + currentPage + "with size of page" + sizeOfPage
-                + "with sorting" + sort.toString());
+                + id + "on page" + currentPage + "with size of page" + sizeOfPage);
         if(sort==null){
             pageRequest = PageRequest.of(currentPage -1, sizeOfPage);
         }

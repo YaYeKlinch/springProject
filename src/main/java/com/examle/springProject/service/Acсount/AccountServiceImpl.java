@@ -28,8 +28,7 @@ public class AccountServiceImpl implements AccountService{
         int currentPage = page.orElse(1);
         int sizeOfPage = size.orElse(5);
         logger.debug("Trying to find all accounts from user with id:"
-                + owner.getId() + "on page" + currentPage + "with size of page" + sizeOfPage
-                + "with sorting" + sort.toString());
+                + owner.getId() + "on page" + currentPage + "with size of page" + sizeOfPage);
         if(sort==null){
             pageRequest = PageRequest.of(currentPage -1, sizeOfPage);
         }
