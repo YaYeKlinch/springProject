@@ -41,7 +41,7 @@ public class RegistrationController {
             return new ModelAndView("registration", "user", userDto);
         }
         try {
-            Optional<User> registered = userService.registerUser(userDto);
+            userService.registerUser(userDto);
         } catch (UserAlreadyExistException ex) {
             logger.debug("user already exists , returning to registration.html");
            model.addAttribute("name" , ex.getMessage());

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-     Optional<User> registerUser(UserDTO userDto) throws UserAlreadyExistException;
+     void registerUser(UserDTO userDto) throws UserAlreadyExistException;
      List<User> findAll();
      void update(User user);
 }

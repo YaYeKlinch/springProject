@@ -35,19 +35,6 @@ public class User implements UserDetails {
     private String password;
     private boolean active;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return id.equals(user.id) && username.equals(user.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username);
-    }
-
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     Set<Account> accounts;
     @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
@@ -63,6 +50,15 @@ public class User implements UserDetails {
 
     public User(Long id) {
         this.id = id;
+    }
+
+    public User(String firsName, String lastName, String username, String password, boolean active, Set<Role> roles) {
+        this.firsName = firsName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
     }
 
     public String getUsername() {
@@ -151,5 +147,22 @@ public class User implements UserDetails {
 
     public Set<Account> getAccounts() {
         return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return active == user.active && firsName.equals(user.firsName) && lastName.equals(user.lastName) && username.equals(user.username) && password.equals(user.password) && roles.equals(user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firsName, lastName, username, password, active, roles);
     }
 }

@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     @Transactional
-    public Optional<User> registerUser(UserDTO userDto) throws UserAlreadyExistException {
+    public void registerUser(UserDTO userDto) throws UserAlreadyExistException {
         logger.info("trying to register user with username " + userDto.getEmail());
             if (emailExists(userDto.getEmail())) {
                 logger.info("tried to register user with username " + userDto.getEmail() +
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         userToCreate.setPassword(userDto.getPassword());
         userToCreate.setUsername(userDto.getEmail());
         userToCreate.setRoles(Collections.singleton(Role.USER));
-        return Optional.ofNullable(userRepo.save(userToCreate));
+        userRepo.save(userToCreate);
     }
 
     @Override

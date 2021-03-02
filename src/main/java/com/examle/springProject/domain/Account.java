@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -38,4 +39,28 @@ public class Account {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     private  Set<CreditCard> creditCards;
 
+    public Account() {
+    }
+
+    public Account(Long id, String name, String number, boolean blocked, int costs, User owner) {
+        this.id = id;
+        this.name = name;
+        this.number = number;
+        this.blocked = blocked;
+        this.costs = costs;
+        this.owner = owner;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Account)) return false;
+        Account account = (Account) o;
+        return blocked == account.blocked && costs == account.costs && name.equals(account.name) && number.equals(account.number) && owner.equals(account.owner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, number, blocked, costs, owner);
+    }
 }
